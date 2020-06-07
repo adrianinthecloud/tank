@@ -10,6 +10,7 @@ public class TankFrame extends Frame {
     private int x = 300, y = 300;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 10;
+    private Tank myTank = new Tank(200, 200, Dir.DOWN);
 
     public TankFrame() {
         setSize(800, 600);
@@ -30,24 +31,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        g.fillRect(x, y, 50, 50);
-
-        switch (dir) {
-            case LEFT:
-                x -= SPEED;
-                break;
-            case UP:
-                y -= SPEED;
-                break;
-            case RIGHT:
-                x += SPEED;
-                break;
-            case DOWN:
-                y += SPEED;
-                break;
-            default:
-                break;
-        }
+        myTank.paint(g);
 
 //        x += 10;
 //        y += 5;
@@ -106,10 +90,10 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTainDir() {
-            if (bL) dir = Dir.LEFT;
-            if (bU) dir = Dir.UP;
-            if (bR) dir = Dir.RIGHT;
-            if (bD) dir = Dir.DOWN;
+            if (bL) myTank.setDir(Dir.LEFT);
+            if (bU) myTank.setDir(Dir.UP);
+            if (bR) myTank.setDir(Dir.RIGHT);
+            if (bD) myTank.setDir(Dir.DOWN);
         }
     }
 }
