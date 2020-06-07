@@ -32,9 +32,6 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         myTank.paint(g);
-
-//        x += 10;
-//        y += 5;
     }
 
     class MyKeyListener extends KeyAdapter {
@@ -63,7 +60,7 @@ public class TankFrame extends Frame {
                     break;
             }
 
-            setMainTainDir();
+            setMainTankDir();
 
             repaint();
         }
@@ -89,11 +86,17 @@ public class TankFrame extends Frame {
             }
         }
 
-        private void setMainTainDir() {
+        private void setMainTankDir() {
+            myTank.setMoving(true);
+
             if (bL) myTank.setDir(Dir.LEFT);
             if (bU) myTank.setDir(Dir.UP);
             if (bR) myTank.setDir(Dir.RIGHT);
             if (bD) myTank.setDir(Dir.DOWN);
+
+            if (!bL && !bU && !bR && !bD) {
+                myTank.setMoving(false);
+            }
         }
     }
 }
