@@ -11,6 +11,7 @@ public class TankFrame extends Frame {
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 10;
     private Tank myTank = new Tank(200, 200, Dir.DOWN);
+    Bullet b = new Bullet(300, 300, Dir.DOWN);
 
     public TankFrame() {
         setSize(800, 600);
@@ -32,6 +33,7 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         myTank.paint(g);
+        b.paint(g);
     }
 
     class MyKeyListener extends KeyAdapter {
