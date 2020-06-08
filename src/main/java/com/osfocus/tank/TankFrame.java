@@ -10,11 +10,12 @@ public class TankFrame extends Frame {
     private int x = 300, y = 300;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 10;
-    private Tank myTank = new Tank(200, 200, Dir.DOWN);
+    private Tank myTank = new Tank(200, 200, Dir.DOWN, this);
     Bullet b = new Bullet(300, 300, Dir.DOWN);
+    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
     public TankFrame() {
-        setSize(800, 600);
+        setSize(GAME_WIDTH, GAME_HEIGHT);
         setResizable(false);
         setTitle("Tank War");
         setVisible(true);
@@ -28,6 +29,25 @@ public class TankFrame extends Frame {
                 System.exit(0);
             }
         });
+    }
+
+    Image offScreenImage = null;
+    // Cache the image to draw in the memory to solve flash issue of the game
+    // update is called before paint
+    @Override
+    public void update(Graphics g) {
+        if (offScreenImage == null) {
+            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+        }
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color c = gOffScreen.getColor();
+        gOffScreen.setColor(Color.BLACK);
+        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        gOffScreen.setColor(c);
+        paint(gOffScreen);
+
+        // draw everything in the memory before draw the image.
+        g.drawImage(offScreenImage, 0, 0, null);
     }
 
     @Override
@@ -57,6 +77,9 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_DOWN:
                     bD = true;
+                    break;
+                case KeyEvent.VK_CONTROL:
+                    myTank.fire();
                     break;
                 default:
                     break;
