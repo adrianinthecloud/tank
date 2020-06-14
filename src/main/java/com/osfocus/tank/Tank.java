@@ -8,12 +8,13 @@ public class Tank {
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 10;
 
-    private static int WIDTH = ResourceMgr.tankD.getWidth();
-    private static int HEIGHT = ResourceMgr.tankD.getHeight();
+    public static int WIDTH = ResourceMgr.tankD.getWidth();
+    public static int HEIGHT = ResourceMgr.tankD.getHeight();
 
     private boolean moving = false;
 
     private TankFrame tf = null;
+    private boolean alive = true;
 
     public Tank(int x, int y, Dir dir, TankFrame tf) {
         super();
@@ -24,6 +25,8 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
+        if (!alive) tf.tanks.remove(this);
+
         switch (dir) {
             case LEFT:
                 g.drawImage(ResourceMgr.tankL, x, y, null);
@@ -85,5 +88,25 @@ public class Tank {
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void die() {
+        this.alive = false;
     }
 }
