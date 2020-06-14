@@ -10,8 +10,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class TankFrame extends Frame {
-    private final Tank myTank = new Tank(200, 200, Dir.DOWN, this);
+    private final Tank myTank = new Tank(200, 400, Dir.DOWN, this);
     List<Bullet> bullets = new ArrayList<>();
+    List<Tank> tanks = new ArrayList<>();
+
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
     public TankFrame() {
@@ -60,6 +62,10 @@ public class TankFrame extends Frame {
         myTank.paint(g);
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
+        }
+
+        for (int i = 0; i < tanks.size(); i++) {
+            tanks.get(i).paint(g);
         }
 
         for (Iterator<Bullet> it = bullets.iterator(); it.hasNext();) {
