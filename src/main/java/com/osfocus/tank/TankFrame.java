@@ -5,13 +5,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class TankFrame extends Frame {
-    private int x = 300, y = 300;
-    private Dir dir = Dir.DOWN;
-    private static final int SPEED = 10;
-    private Tank myTank = new Tank(200, 200, Dir.DOWN, this);
-    Bullet b = new Bullet(300, 300, Dir.DOWN);
+    private final Tank myTank = new Tank(200, 200, Dir.DOWN, this);
+    List<Bullet> bullets = new ArrayList<>();
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
     public TankFrame() {
@@ -52,8 +52,21 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
+        Color c = g.getColor();
+        g.setColor(Color.WHITE);
+        g.drawString("Number of Bullets: " + bullets.size(), 10, 60);
+        g.setColor(c);
+
         myTank.paint(g);
-        b.paint(g);
+        for (int i = 0; i < bullets.size(); i++) {
+            bullets.get(i).paint(g);
+        }
+
+        for (Iterator<Bullet> it = bullets.iterator(); it.hasNext();) {
+            if (!it.next().isLive()) {
+                it.remove();
+            }
+        }
     }
 
     class MyKeyListener extends KeyAdapter {
