@@ -12,11 +12,14 @@ public class Tank {
     public static int WIDTH = ResourceMgr.badTankD.getWidth();
     public static int HEIGHT = ResourceMgr.badTankD.getHeight();
 
+    public Rectangle rect = new Rectangle();
+
     private Random random = new Random();
     private boolean moving = true;
     private Group group = Group.BAD;
 
     private TankFrame tf = null;
+
     private boolean alive = true;
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
@@ -26,6 +29,8 @@ public class Tank {
         this.dir = dir;
         this.group = group;
         this.tf = tf;
+        rect.width = WIDTH;
+        rect.height = HEIGHT;
     }
 
     public void paint(Graphics g) {
@@ -75,6 +80,9 @@ public class Tank {
         if (group == Group.BAD && random.nextInt(100) > 95) randomDir();
 
         boundsCheck();
+
+        rect.x = x;
+        rect.y = y;
     }
 
     private void boundsCheck() {
