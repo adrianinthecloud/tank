@@ -1,11 +1,15 @@
 package com.osfocus.tank;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Tank {
     private int x = 200, y = 200;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 10;
+
+    private static int WIDTH = ResourceMgr.tankD.getWidth();
+    private static int HEIGHT = ResourceMgr.tankD.getHeight();
 
     private boolean moving = false;
 
@@ -62,7 +66,9 @@ public class Tank {
     }
 
     public void fire() {
-        tf.bullets.add(new Bullet(this.x, this.y, this.dir, tf));
+        int bX = this.x + WIDTH/2 - Bullet.WIDTH/2;
+        int bY = this.y + HEIGHT/2 - Bullet.HEIGHT/2;
+        tf.bullets.add(new Bullet(bX, bY, this.dir, tf));
     }
 
     public Dir getDir() {
