@@ -7,7 +7,6 @@ public class Explode {
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
 
     private final TankFrame tf;
-    private boolean alive = true;
 
     private int x, y;
 
@@ -23,14 +22,8 @@ public class Explode {
 
     public void paint(Graphics g) {
         g.drawImage(ResourceMgr.explodes[step++], x, y, null);
-        if (step >= ResourceMgr.explodes.length) step = 0;
-    }
-
-    public boolean isAlive() {
-        return alive;
-    }
-
-    public void setAlive(boolean alive) {
-        this.alive = alive;
+        if (step >= ResourceMgr.explodes.length) {
+            tf.explodes.remove(this);
+        }
     }
 }
