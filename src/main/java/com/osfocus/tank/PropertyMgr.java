@@ -21,6 +21,11 @@ public class PropertyMgr {
         return props.get(key);
     }
 
+    public static int getInt(String key) {
+        if (props == null) throw new NullPointerException("Properties is null");
+        return Integer.valueOf(props.get(key).toString());
+    }
+
     public static void main(String[] args) {
         System.out.println(PropertyMgr.get("initTankCount"));
     }
