@@ -5,8 +5,9 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Tank {
-    private int x = 200, y = 200;
-    private Dir dir = Dir.DOWN;
+    int x = 200;
+    int y = 200;
+    Dir dir = Dir.DOWN;
     private static final int SPEED = PropertyMgr.getInt("tankSpeed");
 
     public static int WIDTH = ResourceMgr.badTankD.getWidth();
@@ -16,9 +17,10 @@ public class Tank {
 
     private Random random = new Random();
     private boolean moving = true;
-    private Group group = Group.BAD;
+    Group group = Group.BAD;
 
-    private TankFrame tf = null;
+    TankFrame tf = null;
+    FireStrategy fs = null;
 
     private boolean alive = true;
 
@@ -31,6 +33,17 @@ public class Tank {
         this.tf = tf;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+
+        try {
+            fs = (FireStrategy) Class.forName(PropertyMgr.get(group == Group.GOOD ? "goodTankFire" : "badTankFire")
+                                        .toString()).newInstance();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
     }
 
     public void paint(Graphics g) {
@@ -97,9 +110,7 @@ public class Tank {
     }
 
     public void fire() {
-        int bX = this.x + WIDTH/2 - Bullet.WIDTH/2;
-        int bY = this.y + HEIGHT/2 - Bullet.HEIGHT/2;
-        tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, tf));
+        fs.fire(this);
     }
 
     public Dir getDir() {
