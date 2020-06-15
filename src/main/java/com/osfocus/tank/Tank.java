@@ -36,12 +36,8 @@ public class Tank {
 
         try {
             fs = (FireStrategy) Class.forName(PropertyMgr.get(group == Group.GOOD ? "goodTankFire" : "badTankFire")
-                                        .toString()).newInstance();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
+                                        .toString()).getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
