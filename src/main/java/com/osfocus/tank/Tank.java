@@ -19,18 +19,18 @@ public class Tank {
     private boolean moving = true;
     Group group = Group.BAD;
 
-    TankFrame tf = null;
+    GameModel gm = null;
     FireStrategy fs = null;
 
     private boolean alive = true;
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
         super();
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tf = tf;
+        this.gm = gm;
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
@@ -43,7 +43,7 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        if (!alive) tf.tanks.remove(this);
+        if (!alive) gm.tanks.remove(this);
 
         switch (dir) {
             case LEFT:
