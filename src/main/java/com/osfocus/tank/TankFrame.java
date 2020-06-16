@@ -1,5 +1,7 @@
 package com.osfocus.tank;
 
+import com.osfocus.tank.abtractfactory.*;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -10,13 +12,15 @@ import java.util.Iterator;
 import java.util.List;
 
 public class TankFrame extends Frame {
-    private final Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD,this);
-    List<Bullet> bullets = new ArrayList<>();
-    List<Tank> tanks = new ArrayList<>();
-    List<Explode> explodes = new ArrayList<>();
+    public GameFactory gf = new RectFactory();
 
-    static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth"),
-                     GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
+    private final Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD,this);
+    public List<BaseBullet> bullets = new ArrayList<>();
+    public List<BaseTank> tanks = new ArrayList<>();
+    public List<BaseExplode> explodes = new ArrayList<>();
+
+    public static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth"),
+                            GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -71,7 +75,7 @@ public class TankFrame extends Frame {
             tanks.get(i).paint(g);
         }
 
-        for (Iterator<Bullet> it = bullets.iterator(); it.hasNext();) {
+        for (Iterator<BaseBullet> it = bullets.iterator(); it.hasNext();) {
             if (!it.next().isAlive()) {
                 it.remove();
             }

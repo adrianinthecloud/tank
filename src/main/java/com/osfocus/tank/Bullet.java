@@ -1,27 +1,25 @@
 package com.osfocus.tank;
 
+import com.osfocus.tank.abtractfactory.BaseBullet;
+import com.osfocus.tank.abtractfactory.BaseTank;
+
 import java.awt.*;
 
-public class Bullet {
-    private static final int SPEED = PropertyMgr.getInt("bulletSpeed");
+public class Bullet extends BaseBullet {
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
 
     Rectangle rect = new Rectangle();
 
-    private final TankFrame tf;
-    private boolean alive = true;
-    private Group group = Group.BAD;
-
     private int x, y;
     private final Dir dir;
 
     public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
+        super(true, group, tf);
+
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.group = group;
-        this.tf = tf;
 
         rect.x = this.x;
         rect.y = this.y;
@@ -97,15 +95,16 @@ public class Bullet {
         this.group = group;
     }
 
-    public void collideWith(Tank tank) {
+    @Override
+    public void collideWith(BaseTank tank) {
         if (this.group == tank.getGroup()) return;
 
         if (rect.intersects(tank.rect)) {
             tank.die();
             this.die();
-            int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
-            int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            tf.explodes.add(new Explode(eX, eY, tf));
+            int eX = tank.getX() + BaseTank.WIDTH/2 - Explode.WIDTH/2;
+            int eY = tank.getY() + BaseTank.HEIGHT/2 - Explode.HEIGHT/2;
+            tf.explodes.add(tf.gf.createExplode(eX, eY, tf));
         }
     }
 

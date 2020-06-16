@@ -1,5 +1,7 @@
 package com.osfocus.tank;
 
+import com.osfocus.tank.abtractfactory.BaseTank;
+
 public interface FireStrategy {
-    void fire(Tank t);
+    void fire(BaseTank t);
 }

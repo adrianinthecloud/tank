@@ -1,36 +1,18 @@
 package com.osfocus.tank;
 
+import com.osfocus.tank.abtractfactory.BaseTank;
+
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Tank {
-    int x = 200;
-    int y = 200;
-    Dir dir = Dir.DOWN;
-    private static final int SPEED = PropertyMgr.getInt("tankSpeed");
-
-    public static int WIDTH = ResourceMgr.badTankD.getWidth();
-    public static int HEIGHT = ResourceMgr.badTankD.getHeight();
-
-    public Rectangle rect = new Rectangle();
-
+public class Tank extends BaseTank {
     private Random random = new Random();
     private boolean moving = true;
-    Group group = Group.BAD;
 
-    TankFrame tf = null;
     FireStrategy fs = null;
 
-    private boolean alive = true;
-
     public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
-        super();
-        this.x = x;
-        this.y = y;
-        this.dir = dir;
-        this.group = group;
-        this.tf = tf;
+        super(true, x, y, dir, group, tf);
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
@@ -97,8 +79,8 @@ public class Tank {
     private void boundsCheck() {
         if (this.x < 2) x = 2;
         if (this.y < 28) y = 28;
-        if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
-        if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
+        if (this.x > TankFrame.GAME_WIDTH - BaseTank.WIDTH - 2) x = TankFrame.GAME_WIDTH - BaseTank.WIDTH - 2;
+        if (this.y > TankFrame.GAME_HEIGHT - BaseTank.HEIGHT - 2) y = TankFrame.GAME_HEIGHT - BaseTank.HEIGHT - 2;
     }
 
     private void randomDir() {
@@ -109,47 +91,11 @@ public class Tank {
         fs.fire(this);
     }
 
-    public Dir getDir() {
-        return dir;
-    }
-
-    public void setDir(Dir dir) {
-        this.dir = dir;
-    }
-
     public boolean isMoving() {
         return moving;
     }
 
     public void setMoving(boolean moving) {
         this.moving = moving;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void die() {
-        this.alive = false;
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
     }
 }

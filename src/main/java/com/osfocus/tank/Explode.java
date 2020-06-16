@@ -1,8 +1,10 @@
 package com.osfocus.tank;
 
+import com.osfocus.tank.abtractfactory.BaseExplode;
+
 import java.awt.*;
 
-public class Explode {
+public class Explode extends BaseExplode {
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
 
