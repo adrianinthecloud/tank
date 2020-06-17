@@ -173,15 +173,8 @@ public class Tank extends GameObject {
         moving = false;
     }
 
-    public void backward(boolean mode) {
-        if (mode) {
-            this.x = this.x + random.nextInt(3);
-            this.y = this.y + random.nextInt(3);
-        } else {
-            this.x = this.x - random.nextInt(3);
-            this.y = this.y - random.nextInt(3);
-        }
-//        this.x = oldX;
-//        this.y = oldY;
+    public void backward() {
+        this.x = oldX;
+        this.y = oldY;
     }
 }

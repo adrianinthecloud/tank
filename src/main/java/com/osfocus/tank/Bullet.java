@@ -7,7 +7,7 @@ public class Bullet extends GameObject {
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
 
-    Rectangle rect = new Rectangle();
+    public Rectangle rect = new Rectangle();
 
     private final GameModel gm;
     private boolean alive = true;
@@ -112,7 +112,7 @@ public class Bullet extends GameObject {
         return false;
     }
 
-    private void die() {
+    public void die() {
         this.alive = false;
     }
 }
