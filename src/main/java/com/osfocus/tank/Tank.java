@@ -20,7 +20,6 @@ public class Tank extends GameObject {
     private boolean moving = true;
     public Group group = Group.BAD;
 
-    public GameModel gm = null;
     FireStrategy fs = null;
 
     private boolean alive = true;
@@ -28,13 +27,12 @@ public class Tank extends GameObject {
     int oldX;
     int oldY;
 
-    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Tank(int x, int y, Dir dir, Group group) {
         super();
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
@@ -44,11 +42,13 @@ public class Tank extends GameObject {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        GameModel.getInstance().add(this);
     }
 
     @Override
     public void paint(Graphics g) {
-        if (!alive) gm.remove(this);
+        if (!alive) GameModel.getInstance().remove(this);
 
         switch (dir) {
             case LEFT:

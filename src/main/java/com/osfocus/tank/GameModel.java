@@ -10,7 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameModel {
-    private final Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD,this);
+    private static final GameModel INSTANCE = new GameModel();
+
+    static {
+        INSTANCE.init();
+    }
+
+    private Tank myTank;
 //    List<Bullet> bullets = new ArrayList<>();
 //    List<Tank> tanks = new ArrayList<>();
 //    List<Explode> explodes = new ArrayList<>();
@@ -21,11 +27,21 @@ public class GameModel {
 
     ColliderChain chain = new ColliderChain();
 
-    public GameModel() {
+    public static GameModel getInstance() {
+        return INSTANCE;
+    }
+
+    private GameModel() {
+
+    }
+
+    private void init() {
         int initTankCount = Integer.parseInt((String) PropertyMgr.get("initTankCount"));
 
+        myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD);
+
         for (int i = 0; i < initTankCount; i++) {
-            objects.add(new Tank(50 + i*80, 200, Dir.DOWN, Group.BAD, this));
+            objects.add(new Tank(50 + i*80, 200, Dir.DOWN, Group.BAD));
         }
 
         add(new Wall(150, 150, 200, 50));

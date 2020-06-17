@@ -9,31 +9,29 @@ public class Bullet extends GameObject {
 
     public Rectangle rect = new Rectangle();
 
-    private final GameModel gm;
     private boolean alive = true;
     private Group group = Group.BAD;
 
     private int x, y;
     private final Dir dir;
 
-    public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
 
         rect.x = this.x;
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-        gm.add(this);
+        GameModel.getInstance().add(this);
     }
 
     public void paint(Graphics g) {
         if (!alive) {
-            this.gm.remove(this);
+            GameModel.getInstance().remove(this);
         }
 
         switch (dir) {
@@ -105,7 +103,7 @@ public class Bullet extends GameObject {
             this.die();
             int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
             int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            gm.add(new Explode(eX, eY, gm));
+            GameModel.getInstance().add(new Explode(eX, eY));
             return true;
         }
 
