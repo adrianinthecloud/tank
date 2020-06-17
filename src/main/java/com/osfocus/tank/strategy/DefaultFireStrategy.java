@@ -1,6 +1,7 @@
 package com.osfocus.tank.strategy;
 
 import com.osfocus.tank.*;
+import com.osfocus.tank.decorator.RectDecorator;
 
 public class DefaultFireStrategy implements FireStrategy {
     @Override
@@ -8,7 +9,7 @@ public class DefaultFireStrategy implements FireStrategy {
         int bX = t.x + t.WIDTH/2 - Bullet.WIDTH/2;
         int bY = t.y + t.HEIGHT/2 - Bullet.HEIGHT/2;
 
-        new Bullet(bX, bY, t.dir, t.group);
+        GameModel.getInstance().add(new RectDecorator(new Bullet(bX, bY, t.dir, t.group)));
 
         if (t.group == Group.GOOD) new Thread(() -> new Audio("audio/tank_fire.wav"));
     }

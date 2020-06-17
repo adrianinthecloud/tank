@@ -1,8 +1,14 @@
 package com.osfocus.tank;
 
+import com.osfocus.tank.observer.TankFireEvent;
+import com.osfocus.tank.observer.TankFireListener;
+import com.osfocus.tank.observer.TankFireObserver;
 import com.osfocus.tank.strategy.FireStrategy;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Tank extends GameObject {
@@ -67,6 +73,16 @@ public class Tank extends GameObject {
         }
 
         move();
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
     private void move() {
@@ -176,5 +192,14 @@ public class Tank extends GameObject {
     public void backward() {
         this.x = oldX;
         this.y = oldY;
+    }
+
+    List<TankFireObserver> observerList = Arrays.asList(new TankFireListener());
+    public void handleFire() {
+        TankFireEvent event = new TankFireEvent(this);
+
+        for (TankFireObserver observer : observerList) {
+            observer.actionOnFire(event);
+        }
     }
 }

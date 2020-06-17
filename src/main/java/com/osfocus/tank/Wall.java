@@ -1,5 +1,6 @@
 package com.osfocus.tank;
 
+
 import java.awt.*;
 
 public class Wall extends GameObject {
@@ -22,5 +23,15 @@ public class Wall extends GameObject {
         g.setColor(Color.DARK_GRAY);
         g.fillRect(x, y, w, h);
         g.setColor(c);
+    }
+
+    @Override
+    public int getWidth() {
+        return w;
+    }
+
+    @Override
+    public int getHeight() {
+        return h;
     }
 }

@@ -12,7 +12,6 @@ public class Bullet extends GameObject {
     private boolean alive = true;
     private Group group = Group.BAD;
 
-    private int x, y;
     private final Dir dir;
 
     public Bullet(int x, int y, Dir dir, Group group) {
@@ -25,8 +24,6 @@ public class Bullet extends GameObject {
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
-
-        GameModel.getInstance().add(this);
     }
 
     public void paint(Graphics g) {
@@ -51,6 +48,16 @@ public class Bullet extends GameObject {
         }
 
         move();
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
     private void move() {
