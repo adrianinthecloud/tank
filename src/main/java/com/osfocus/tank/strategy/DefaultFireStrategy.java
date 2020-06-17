@@ -1,4 +1,6 @@
-package com.osfocus.tank;
+package com.osfocus.tank.strategy;
+
+import com.osfocus.tank.*;
 
 public class DefaultFireStrategy implements FireStrategy {
     @Override

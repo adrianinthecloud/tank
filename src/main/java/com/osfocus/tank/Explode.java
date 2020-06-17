@@ -2,7 +2,7 @@ package com.osfocus.tank;
 
 import java.awt.*;
 
-public class Explode {
+public class Explode extends GameObject {
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
 
@@ -20,10 +20,11 @@ public class Explode {
         new Audio("audio/explode.wav").start();
     }
 
+    @Override
     public void paint(Graphics g) {
         g.drawImage(ResourceMgr.explodes[step++], x, y, null);
         if (step >= ResourceMgr.explodes.length) {
-            gm.explodes.remove(this);
+            gm.remove(this);
         }
     }
 }

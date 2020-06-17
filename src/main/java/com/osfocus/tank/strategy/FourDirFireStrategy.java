@@ -1,4 +1,8 @@
-package com.osfocus.tank;
+package com.osfocus.tank.strategy;
+
+import com.osfocus.tank.Bullet;
+import com.osfocus.tank.Dir;
+import com.osfocus.tank.Tank;
 
 public class FourDirFireStrategy implements FireStrategy {
     @Override

@@ -1,13 +1,14 @@
 package com.osfocus.tank;
 
+import com.osfocus.tank.strategy.FireStrategy;
+
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Tank {
-    int x = 200;
-    int y = 200;
-    Dir dir = Dir.DOWN;
+public class Tank extends GameObject {
+    public int x = 200;
+    public int y = 200;
+    public Dir dir = Dir.DOWN;
     private static final int SPEED = PropertyMgr.getInt("tankSpeed");
 
     public static int WIDTH = ResourceMgr.badTankD.getWidth();
@@ -17,9 +18,9 @@ public class Tank {
 
     private Random random = new Random();
     private boolean moving = true;
-    Group group = Group.BAD;
+    public Group group = Group.BAD;
 
-    GameModel gm = null;
+    public GameModel gm = null;
     FireStrategy fs = null;
 
     private boolean alive = true;
@@ -42,8 +43,9 @@ public class Tank {
         }
     }
 
+    @Override
     public void paint(Graphics g) {
-        if (!alive) gm.tanks.remove(this);
+        if (!alive) gm.remove(this);
 
         switch (dir) {
             case LEFT:
@@ -151,5 +153,27 @@ public class Tank {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public Rectangle getRect() {
+        return rect;
+    }
+
+    public void setRect(Rectangle rect) {
+        this.rect = rect;
+    }
+
+    public void stop() {
+        moving = false;
+    }
+
+    public void backward(boolean mode) {
+        if (mode) {
+            this.x = this.x + random.nextInt(3);
+            this.y = this.y + random.nextInt(3);
+        } else {
+            this.x = this.x - random.nextInt(3);
+            this.y = this.y - random.nextInt(3);
+        }
     }
 }
