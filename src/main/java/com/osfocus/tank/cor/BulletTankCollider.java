@@ -12,12 +12,12 @@ public class BulletTankCollider implements Collider {
             Tank t = (Tank) o2;
 
             if (b.collideWith(t)) {
-                return false;
+                return true;
             }
         } else if (o1 instanceof  Tank && o2 instanceof Bullet) {
             return collide(o2, o1);
         }
 
-        return true;
+        return false;
     }
 }

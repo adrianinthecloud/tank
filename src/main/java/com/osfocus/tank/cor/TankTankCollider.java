@@ -16,6 +16,6 @@ public class TankTankCollider implements Collider {
             }
         }
 
-        return true;
+        return false;
     }
 }

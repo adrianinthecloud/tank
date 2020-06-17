@@ -25,6 +25,9 @@ public class Tank extends GameObject {
 
     private boolean alive = true;
 
+    int oldX;
+    int oldY;
+
     public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
         super();
         this.x = x;
@@ -68,6 +71,9 @@ public class Tank extends GameObject {
 
     private void move() {
         if (!moving) return;
+
+        oldX = x;
+        oldY = y;
 
         switch (dir) {
             case LEFT:
@@ -175,5 +181,7 @@ public class Tank extends GameObject {
             this.x = this.x - random.nextInt(3);
             this.y = this.y - random.nextInt(3);
         }
+//        this.x = oldX;
+//        this.y = oldY;
     }
 }
