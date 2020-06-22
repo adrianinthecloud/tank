@@ -3,7 +3,9 @@ package com.osfocus.tank.strategy;
 import com.osfocus.tank.*;
 import com.osfocus.tank.decorator.RectDecorator;
 
-public class DefaultFireStrategy implements FireStrategy {
+import java.io.Serializable;
+
+public class DefaultFireStrategy implements FireStrategy, Serializable {
     @Override
     public void fire(Tank t) {
         int bX = t.x + t.WIDTH/2 - Bullet.WIDTH/2;

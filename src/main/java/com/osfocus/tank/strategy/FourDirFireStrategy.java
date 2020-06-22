@@ -6,7 +6,9 @@ import com.osfocus.tank.GameModel;
 import com.osfocus.tank.Tank;
 import com.osfocus.tank.decorator.TailDecorator;
 
-public class FourDirFireStrategy implements FireStrategy {
+import java.io.Serializable;
+
+public class FourDirFireStrategy implements FireStrategy, Serializable {
     @Override
     public void fire(Tank t) {
         int bX = t.x + t.WIDTH/2;
